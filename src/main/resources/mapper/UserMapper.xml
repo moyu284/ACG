@@ -5,7 +5,7 @@
 <mapper namespace="xyz.moyuzhe.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="xyz.moyuzhe.entity.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="username" column="userName" jdbcType="VARCHAR"/>
             <result property="userpw" column="userPw" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
@@ -19,4 +19,9 @@
         phone,email,userType,
         isDel
     </sql>
+
+    <select id="getUser" resultType="xyz.moyuzhe.entity.User">
+        select * from user where UserName = #{userName}
+    </select>
+
 </mapper>

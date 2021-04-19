@@ -1,22 +1,27 @@
 package xyz.moyuzhe.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.moyuzhe.entity.User;
 import xyz.moyuzhe.service.UserService;
 import xyz.moyuzhe.utils.JwtUtils;
 import xyz.moyuzhe.utils.PassToken;
 import xyz.moyuzhe.vo.AccountVO;
 
+import java.util.UUID;
+
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     UserService userService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public User get(@RequestParam String id) {
+        return userService.getById(id);
+    }
 
     @PassToken
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -36,4 +41,11 @@ public class UserController {
 
         return account;
     }
+
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public void register(@RequestBody User user) {
+        user.setId(String.valueOf(UUID.randomUUID()));
+        userService.save(user);
+    }
+
 }

@@ -42,6 +42,10 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
             // 执行认证
             if (token == null) {
                 System.out.println("验证失败");
+                httpServletRequest.setAttribute("msg","请登录");
+                String url = httpServletRequest.getContextPath()+"/hello";
+                System.out.println(url);
+                httpServletResponse.sendRedirect(url);//拦截后跳转的方法
                 //这里其实是登录失效,没token了   这个错误也是我自定义的，读者需要自己修改
                 return false;
 //                throw new Exception();

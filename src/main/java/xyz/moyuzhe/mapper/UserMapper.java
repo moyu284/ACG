@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Entity xyz.moyuzhe.entity.User
  */
 public interface UserMapper extends BaseMapper<User> {
-
+    User getUser(String userName);
 }
 
 
