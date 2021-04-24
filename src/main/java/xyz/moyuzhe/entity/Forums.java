@@ -5,56 +5,45 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
- *
- * @TableName topic
+ * 
+ * @TableName forums
  */
-@TableName(value ="topic")
+@TableName(value ="forums")
 @Data
-public class Topic implements Serializable {
+public class Forums implements Serializable {
     /**
-     *
+     * 
      */
     @TableId
     private String id;
 
     /**
-     *
+     * 
      */
-    private String fid;
+    private String type;
 
     /**
-     *
+     * 
      */
-    private String author;
+    private String name;
 
     /**
-     *
+     * 
      */
-    private String authorid;
+    private String fup;
 
     /**
-     *
+     * 
      */
-    private String subject;
+    private String path;
 
     /**
-     *
+     * 
      */
-    private Integer view;
-
-    /**
-     *
-     */
-    private Integer replies;
-
-    /**
-     *
-     */
-    private Date addtime;
+    private String status;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -3,12 +3,14 @@ package xyz.moyuzhe.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import xyz.moyuzhe.entity.Threads;
 import xyz.moyuzhe.entity.User;
 
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AccountVO {
-    private String token;
+@NoArgsConstructor
+public class ThreadsVO {
+    private Threads threads;
     private User user;
 }

@@ -5,19 +5,48 @@
 <mapper namespace="xyz.moyuzhe.mapper.TopicMapper">
 
     <resultMap id="BaseResultMap" type="xyz.moyuzhe.entity.Topic">
-            <id property="pid" column="pid" jdbcType="INTEGER"/>
-            <result property="fid" column="fid" jdbcType="INTEGER"/>
-            <result property="author" column="author" jdbcType="VARCHAR"/>
-            <result property="authorid" column="authorid" jdbcType="INTEGER"/>
-            <result property="subject" column="subject" jdbcType="VARCHAR"/>
-            <result property="view" column="view" jdbcType="INTEGER"/>
-            <result property="replies" column="replies" jdbcType="INTEGER"/>
-            <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="fid" column="fid" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="authorid" column="authorid" jdbcType="VARCHAR"/>
+        <result property="subject" column="subject" jdbcType="VARCHAR"/>
+        <result property="view" column="view" jdbcType="INTEGER"/>
+        <result property="replies" column="replies" jdbcType="INTEGER"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        pid,fid,author,
+        id,fid,author,
         authorid,subject,view,
         replies,addtime
     </sql>
+
+    <select id="getLatestList" resultType="xyz.moyuzhe.vo.TopicVO">
+        select topic.id,
+               fid,
+               author,
+               authorid,
+               `subject`,
+               `view`,
+               replies,
+               addtime,
+               forums.`name` as forums
+        from topic
+                 left JOIN forums on topic.fid = forums.id
+        ORDER BY addtime DESC
+        LIMIT 10
+    </select>
+
+    <select id="getHotTopic" resultType="xyz.moyuzhe.entity.Topic">
+        select * from topic order by view limit 5;
+    </select>
+
+    <select id="getThreadsHotTopic" resultType="xyz.moyuzhe.entity.Topic">
+        select * from topic where fid = #{id} order by view limit 5;
+    </select>
+
+    <select id="getForumsTopic" resultType="xyz.moyuzhe.vo.TopicVO">
+        select * from topic where fid = #{id};
+    </select>
+
 </mapper>

@@ -5,23 +5,35 @@
 <mapper namespace="xyz.moyuzhe.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="xyz.moyuzhe.entity.User">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="username" column="userName" jdbcType="VARCHAR"/>
-            <result property="userpw" column="userPw" jdbcType="VARCHAR"/>
-            <result property="phone" column="phone" jdbcType="VARCHAR"/>
-            <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="usertype" column="userType" jdbcType="INTEGER"/>
-            <result property="isdel" column="isDel" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="username" column="userName" jdbcType="VARCHAR"/>
+        <result property="userpw" column="userPw" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="headerimg" column="headerImg" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="usertype" column="userType" jdbcType="INTEGER"/>
+        <result property="isdel" column="isDel" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,userName,userPw,
-        phone,email,userType,
+        phone,email,,headerImg,userType,
         isDel
     </sql>
 
     <select id="getUser" resultType="xyz.moyuzhe.entity.User">
-        select * from user where UserName = #{userName}
+        select *
+        from user
+        where userName = #{userName}
+          and userPw = #{passwd}
+    </select>
+
+    <update id="changeHeader">
+        update user set headerImg = #{imgPath} where id = #{userId}
+    </update>
+
+    <select id="checkUser" resultType="int">
+        select count(*) from user where userName = #{username}
     </select>
 
 </mapper>

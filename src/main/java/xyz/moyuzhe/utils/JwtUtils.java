@@ -18,7 +18,7 @@ public class JwtUtils {
      载荷内容：暂时设计为：这个人的名字，这个人的昵称
      加密密钥：这个人的id加上一串字符串
      */
-    public static String createToken(String userId,String realName, String userName) {
+    public static String createToken(String userId,String userName) {
 
         Calendar nowTime = Calendar.getInstance();
         nowTime.add(Calendar.MINUTE,30);
@@ -28,7 +28,6 @@ public class JwtUtils {
                 .withIssuedAt(new Date())    //发行时间
                 .withExpiresAt(expiresDate)  //有效时间
                 .withClaim("userName", userName)    //载荷，随便写几个都可以
-                .withClaim("realName", realName)
                 .sign(Algorithm.HMAC256(userId+"HelloLehr"));   //加密
     }
 

@@ -9,52 +9,62 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- *
- * @TableName topic
+ * 
+ * @TableName threads
  */
-@TableName(value ="topic")
+@TableName(value ="threads")
 @Data
-public class Topic implements Serializable {
+public class Threads implements Serializable {
     /**
-     *
+     * 
      */
     @TableId
     private String id;
 
     /**
-     *
+     * 
+     */
+    private String pid;
+
+    /**
+     * 
      */
     private String fid;
 
     /**
-     *
+     * 
+     */
+    private Integer ftype;
+
+    /**
+     * 
      */
     private String author;
 
     /**
-     *
+     * 
      */
     private String authorid;
 
     /**
-     *
+     * 
      */
     private String subject;
 
     /**
-     *
+     * 
      */
-    private Integer view;
+    private String content;
 
     /**
-     *
-     */
-    private Integer replies;
-
-    /**
-     *
+     * 
      */
     private Date addtime;
+
+    /**
+     * 
+     */
+    private Integer tnum;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

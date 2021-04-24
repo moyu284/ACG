@@ -17,7 +17,7 @@ public class User implements Serializable {
     /**
      * 
      */
-    @TableId(type = IdType.AUTO)
+    @TableId
     private String id;
 
     /**
@@ -34,6 +34,11 @@ public class User implements Serializable {
      * 
      */
     private String phone;
+
+    /**
+     * 
+     */
+    private String headerimg;
 
     /**
      * 

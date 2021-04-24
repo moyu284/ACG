@@ -13,8 +13,18 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public User getUser(String userName) {
-        return baseMapper.getUser(userName);
+    public User getUser(String userName, String passwd) {
+        return baseMapper.getUser(userName,passwd);
+    }
+
+    @Override
+    public void changeHeader(String userId, String imgPath) {
+        baseMapper.changeHeader(userId,imgPath);
+    }
+
+    @Override
+    public int checkUser(String username) {
+        return baseMapper.checkUser(username);
     }
 }
 
