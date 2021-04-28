@@ -5,27 +5,32 @@
 <mapper namespace="xyz.moyuzhe.mapper.ThreadsMapper">
 
     <resultMap id="BaseResultMap" type="xyz.moyuzhe.entity.Threads">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="pid" column="pid" jdbcType="VARCHAR"/>
-            <result property="fid" column="fid" jdbcType="VARCHAR"/>
-            <result property="ftype" column="ftype" jdbcType="INTEGER"/>
-            <result property="author" column="author" jdbcType="VARCHAR"/>
-            <result property="authorid" column="authorid" jdbcType="VARCHAR"/>
-            <result property="subject" column="subject" jdbcType="VARCHAR"/>
-            <result property="content" column="content" jdbcType="VARCHAR"/>
-            <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
-            <result property="tnum" column="tnum" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="pid" column="pid" jdbcType="VARCHAR"/>
+        <result property="fid" column="fid" jdbcType="VARCHAR"/>
+        <result property="ftype" column="ftype" jdbcType="INTEGER"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="authorid" column="authorid" jdbcType="VARCHAR"/>
+        <result property="subject" column="subject" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="tnum" column="tnum" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,pid,fid,
         ftype,author,authorid,
         subject,content,addtime,
-        tnum
+        tnum,status
     </sql>
 
     <select id="getComment" resultType="xyz.moyuzhe.entity.Threads">
-        select * from threads where pid = #{pid} and ftype = '1' order by addtime desc
+        select *
+        from threads
+        where pid = #{pid}
+          and ftype = '1'
+        order by addtime desc
     </select>
 
 </mapper>

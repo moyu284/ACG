@@ -13,12 +13,13 @@
         <result property="view" column="view" jdbcType="INTEGER"/>
         <result property="replies" column="replies" jdbcType="INTEGER"/>
         <result property="addtime" column="addtime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,fid,author,
         authorid,subject,view,
-        replies,addtime
+        replies,addtime,status
     </sql>
 
     <select id="getLatestList" resultType="xyz.moyuzhe.vo.TopicVO">
@@ -32,21 +33,25 @@
                addtime,
                forums.`name` as forums
         from topic
-                 left JOIN forums on topic.fid = forums.id
+                 left JOIN forums on topic.fid = forums.id where topic.status = 0
         ORDER BY addtime DESC
-        LIMIT 10
+        LIMIT 10;
     </select>
 
     <select id="getHotTopic" resultType="xyz.moyuzhe.entity.Topic">
-        select * from topic order by view limit 5;
+        select * from topic where topic.status = 0 order by view limit 5;
     </select>
 
     <select id="getThreadsHotTopic" resultType="xyz.moyuzhe.entity.Topic">
-        select * from topic where fid = #{id} order by view limit 5;
+        select * from topic where fid = #{id} and topic.status = 0 order by view limit 5;
     </select>
 
     <select id="getForumsTopic" resultType="xyz.moyuzhe.vo.TopicVO">
-        select * from topic where fid = #{id};
+        select * from topic where fid = #{id} and topic.status = 0;
     </select>
+
+    <update id="addView">
+        update `topic` set `view` = `view`+1 WHERE `id` = #{id}
+    </update>
 
 </mapper>

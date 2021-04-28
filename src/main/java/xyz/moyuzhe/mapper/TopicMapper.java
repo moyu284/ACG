@@ -14,6 +14,7 @@ public interface TopicMapper extends BaseMapper<Topic> {
     List<Topic> getHotTopic();
     List<Topic> getThreadsHotTopic(String id);
     List<TopicVO> getForumsTopic(String id);
+    void addView(String id);
 }
 
 

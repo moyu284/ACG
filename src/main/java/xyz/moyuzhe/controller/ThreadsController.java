@@ -37,8 +37,9 @@ public class ThreadsController {
     @RequestMapping(value = "/getThread", method = RequestMethod.GET)
     public Result<ThreadsVO> getThread(String id) {
         Threads threads = threadsService.getById(id);
-        User user = userService.getById(threads.getAuthorid());
+        User user = userService.getUser(threads.getAuthorid());
         user.setUserpw("");
+        topicService.addView(id);
         return new ResultUtil<ThreadsVO>().setData(new ThreadsVO(threads, user));
     }
 
@@ -47,7 +48,7 @@ public class ThreadsController {
         List<Threads> comment = threadsService.getComment(pid);
         List<ThreadsVO> threadsVOS = new ArrayList<>();
         for (Threads threads : comment) {
-            User user = userService.getById(threads.getAuthorid());
+            User user = userService.getUser(threads.getAuthorid());
             user.setUserpw("");
             threadsVOS.add(new ThreadsVO(threads, user));
         }
@@ -92,8 +93,8 @@ public class ThreadsController {
         threads.setPid(pid);
         threads.setFtype(0);
         threads.setAddtime(date);
-        System.out.println(threads);
-//        threadsService.save(threads);
+//        System.out.println(threads);
+        threadsService.save(threads);
         return new ResultUtil<Object>().setData("发表成功");
     }
 }

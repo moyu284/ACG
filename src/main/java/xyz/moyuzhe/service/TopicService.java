@@ -15,4 +15,5 @@ public interface TopicService extends IService<Topic> {
     List<Topic> getThreadsHotTopic(String id);
     List<TopicVO> getForumsTopic(String id);
     String saveTopic(Topic topic);
+    void addView(String id);
 }

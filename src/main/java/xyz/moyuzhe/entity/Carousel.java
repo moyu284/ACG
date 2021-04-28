@@ -5,59 +5,28 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
- *
- * @TableName topic
+ * 
+ * @TableName carousel
  */
-@TableName(value ="topic")
+@TableName(value ="carousel")
 @Data
-public class Topic implements Serializable {
+public class Carousel implements Serializable {
     /**
-     *
+     * 
      */
     @TableId
     private String id;
 
     /**
-     *
+     * 
      */
-    private String fid;
+    private String path;
 
     /**
-     *
-     */
-    private String author;
-
-    /**
-     *
-     */
-    private String authorid;
-
-    /**
-     *
-     */
-    private String subject;
-
-    /**
-     *
-     */
-    private Integer view;
-
-    /**
-     *
-     */
-    private Integer replies;
-
-    /**
-     *
-     */
-    private Date addtime;
-
-    /**
-     *
+     * 
      */
     private Integer status;
 

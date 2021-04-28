@@ -9,6 +9,7 @@ import java.util.List;
  * @Entity xyz.moyuzhe.entity.Forums
  */
 public interface ForumsMapper extends BaseMapper<Forums> {
+    List<Forums> getForumsList(String id);
 }
 
 

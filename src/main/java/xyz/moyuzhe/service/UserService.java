@@ -7,7 +7,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *
  */
 public interface UserService extends IService<User> {
-    User getUser(String userName,String passwd);
+    User findUser(String userName, String passwd);
+    User getUser(String id);
     void changeHeader(String userId,String imgPath);
     int checkUser(String username);
 }

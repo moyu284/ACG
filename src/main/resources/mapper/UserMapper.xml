@@ -12,28 +12,31 @@
         <result property="headerimg" column="headerImg" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="usertype" column="userType" jdbcType="INTEGER"/>
-        <result property="isdel" column="isDel" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,userName,userPw,
         phone,email,,headerImg,userType,
-        isDel
+        status
     </sql>
 
-    <select id="getUser" resultType="xyz.moyuzhe.entity.User">
+    <select id="findUser" resultType="xyz.moyuzhe.entity.User">
         select *
         from user
         where userName = #{userName}
-          and userPw = #{passwd}
+          and userPw = #{passwd} and user.status = 0;
     </select>
 
     <update id="changeHeader">
-        update user set headerImg = #{imgPath} where id = #{userId}
+        update user set headerImg = #{imgPath} where id = #{userId} and user.status = 0;
     </update>
 
     <select id="checkUser" resultType="int">
-        select count(*) from user where userName = #{username}
+        select count(*) from user where userName = #{username} and user.status = 0;
     </select>
 
+    <select id="getUser" resultType="xyz.moyuzhe.entity.User">
+        select * from user where id = #{id}
+    </select>
 </mapper>

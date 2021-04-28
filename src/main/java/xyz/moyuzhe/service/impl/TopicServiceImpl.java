@@ -44,6 +44,11 @@ implements TopicService{
         save(topic);
         return pid;
     }
+
+    @Override
+    public void addView(String id) {
+        baseMapper.addView(id);
+    }
 }
 
 

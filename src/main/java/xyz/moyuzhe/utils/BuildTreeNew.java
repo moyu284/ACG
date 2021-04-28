@@ -1,6 +1,7 @@
 package xyz.moyuzhe.utils;
 
 import xyz.moyuzhe.vo.TreeNode;
+import xyz.moyuzhe.vo.TreeNodeNew;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,38 +13,38 @@ import java.util.List;
  * @author chenhuijie
  * @since 2021-04-20
  */
-public class BuildTree {
-    List<TreeNode> TreeNodes = new ArrayList<>();
+public class BuildTreeNew {
+    List<TreeNodeNew> TreeNodes = new ArrayList<>();
 
 
-    public List<TreeNode> buildTree(List<TreeNode> TreeNodes) {
+    public List<TreeNodeNew> buildTree(List<TreeNodeNew> TreeNodes) {
 
-        BuildTree treeBuilder = new BuildTree(TreeNodes);
+        BuildTreeNew treeBuilder = new BuildTreeNew(TreeNodes);
 
         return treeBuilder.buildJSONTree();
     }
 
-    public BuildTree() {
+    public BuildTreeNew() {
     }
 
-    public BuildTree(List<TreeNode> TreeNodes) {
+    public BuildTreeNew(List<TreeNodeNew> TreeNodes) {
         super();
         this.TreeNodes = TreeNodes;
     }
 
     // 构建JSON树形结构
-    public List<TreeNode> buildJSONTree() {
-        List<TreeNode> TreeNodeTree = buildTree();
+    public List<TreeNodeNew> buildJSONTree() {
+        List<TreeNodeNew> TreeNodeTree = buildTree();
         return TreeNodeTree;
     }
 
     // 构建树形结构
-    public List<TreeNode> buildTree() {
-        List<TreeNode> treeTreeNodes = new ArrayList<>();
+    public List<TreeNodeNew> buildTree() {
+        List<TreeNodeNew> treeTreeNodes = new ArrayList<>();
         //获取所有根节点
-        List<TreeNode> rootTreeNodes = getRootTreeNodes();
+        List<TreeNodeNew> rootTreeNodes = getRootTreeNodes();
         //获取每个根节点
-        for (TreeNode rootTreeNode : rootTreeNodes) {
+        for (TreeNodeNew rootTreeNode : rootTreeNodes) {
             try {
                 //递归这个根节点的子节点
                 buildChildTreeNodes(rootTreeNode);
@@ -59,10 +60,10 @@ public class BuildTree {
     }
 
     // 递归子节点
-    public void buildChildTreeNodes(TreeNode TreeNode) {
-        List<TreeNode> children = getChildTreeNodes(TreeNode);
+    public void buildChildTreeNodes(TreeNodeNew TreeNode) {
+        List<TreeNodeNew> children = getChildTreeNodes(TreeNode);
         if (!children.isEmpty()) {
-            for (TreeNode child : children)
+            for (TreeNodeNew child : children)
                 try {
                     buildChildTreeNodes(child);
                 } catch (Exception e) {
@@ -79,10 +80,10 @@ public class BuildTree {
      * @param pTreeNode
      * @return
      */
-    public List<TreeNode> getChildTreeNodes(TreeNode pTreeNode) {
-        List<TreeNode> childTreeNodes = new ArrayList<>();
+    public List<TreeNodeNew> getChildTreeNodes(TreeNodeNew pTreeNode) {
+        List<TreeNodeNew> childTreeNodes = new ArrayList<>();
 
-        for (TreeNode n : TreeNodes) {
+        for (TreeNodeNew n : TreeNodes) {
             if (pTreeNode.getCode().equals(n.getPcode())) {
                 childTreeNodes.add(n);
             }
@@ -91,24 +92,21 @@ public class BuildTree {
     }
 
     // 判断是否为根节点
-    public boolean rootTreeNode(TreeNode TreeNode) {
-        boolean isRootTreeNode = false;
-//        for (TreeNode n : TreeNodes) {
-//            if (TreeNode.getPcode().equals(n.getCode())) {
-//                isRootTreeNode = false;
-//                break;
-//            }
-//        }
-        if ("0".equals(TreeNode.getPcode())){
-            isRootTreeNode = true;
+    public boolean rootTreeNode(TreeNodeNew TreeNode) {
+        boolean isRootTreeNode = true;
+        for (TreeNodeNew n : TreeNodes) {
+            if (TreeNode.getPcode().equals(n.getCode())) {
+                isRootTreeNode = false;
+                break;
+            }
         }
         return isRootTreeNode;
     }
 
     // 获取集合中所有的根节点
-    public List<TreeNode> getRootTreeNodes() {
-        List<TreeNode> rootTreeNodes = new ArrayList<>();
-        for (TreeNode n : TreeNodes) {
+    public List<TreeNodeNew> getRootTreeNodes() {
+        List<TreeNodeNew> rootTreeNodes = new ArrayList<>();
+        for (TreeNodeNew n : TreeNodes) {
             if (rootTreeNode(n)) {
                 rootTreeNodes.add(n);
             }
