@@ -39,11 +39,11 @@
     </select>
 
     <select id="getHotTopic" resultType="xyz.moyuzhe.entity.Topic">
-        select * from topic where topic.status = 0 order by view limit 5;
+        select * from topic where topic.status = 0 order by view desc limit 5 ;
     </select>
 
     <select id="getThreadsHotTopic" resultType="xyz.moyuzhe.entity.Topic">
-        select * from topic where fid = #{id} and topic.status = 0 order by view limit 5;
+        select * from topic where fid = #{id} and topic.status = 0 order by view desc limit 5;
     </select>
 
     <select id="getForumsTopic" resultType="xyz.moyuzhe.vo.TopicVO">

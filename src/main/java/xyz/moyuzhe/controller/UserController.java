@@ -1,9 +1,11 @@
 package xyz.moyuzhe.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.moyuzhe.entity.User;
 import xyz.moyuzhe.service.UserService;
+import xyz.moyuzhe.utils.BaiduUtils;
 import xyz.moyuzhe.utils.JwtUtils;
 import xyz.moyuzhe.utils.PassToken;
 import xyz.moyuzhe.utils.ResultUtil;
@@ -21,6 +23,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BaiduUtils baiduUtils;
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     public User get(String id) {
@@ -51,6 +56,12 @@ public class UserController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public Result<Object> register(@RequestBody User user) {
+        JSONObject result = baiduUtils.checkText(user.getUsername());
+        String conclusion = result.getString("conclusion");
+        if ("不合规".equals(conclusion)){
+            return new ResultUtil<Object>().setErrorMsg("用户名疑似或存在违规！请不要传播非法内容");
+        }
+
         int i = userService.checkUser(user.getUsername());
         if (i > 0){
             return new ResultUtil<Object>().setErrorMsg("用户已存在");

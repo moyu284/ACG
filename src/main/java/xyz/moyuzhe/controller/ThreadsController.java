@@ -1,5 +1,6 @@
 package xyz.moyuzhe.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import xyz.moyuzhe.entity.User;
 import xyz.moyuzhe.service.ThreadsService;
 import xyz.moyuzhe.service.TopicService;
 import xyz.moyuzhe.service.UserService;
+import xyz.moyuzhe.utils.BaiduUtils;
 import xyz.moyuzhe.utils.ResultUtil;
 import xyz.moyuzhe.vo.Result;
 import xyz.moyuzhe.vo.ThreadsVO;
@@ -33,6 +35,9 @@ public class ThreadsController {
 
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    BaiduUtils baiduUtils;
 
     @RequestMapping(value = "/getThread", method = RequestMethod.GET)
     public Result<ThreadsVO> getThread(String id) {
@@ -76,6 +81,16 @@ public class ThreadsController {
         }
         if (threads.getContent() == null || threads.getContent().isEmpty()){
             return new ResultUtil<Object>().setErrorMsg("请输入内容");
+        }
+        JSONObject result = baiduUtils.checkText(threads.getSubject());
+        String conclusion = result.getString("conclusion");
+        if ("不合规".equals(conclusion)){
+            return new ResultUtil<Object>().setErrorMsg("标题疑似或存在违规！请不要传播非法内容");
+        }
+        result = baiduUtils.checkText(threads.getContent());
+        conclusion = result.getString("conclusion");
+        if ("不合规".equals(conclusion)){
+            return new ResultUtil<Object>().setErrorMsg("内容疑似或存在违规！请不要传播非法内容");
         }
         Date date = new Date();
 

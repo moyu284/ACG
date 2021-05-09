@@ -1,8 +1,11 @@
 package xyz.moyuzhe.controller;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.moyuzhe.exception.XmallUploadException;
+import xyz.moyuzhe.utils.BaiduUtils;
 import xyz.moyuzhe.utils.QiniuUtil;
 import xyz.moyuzhe.utils.ResultUtil;
 import xyz.moyuzhe.vo.KindEditorResult;
@@ -15,10 +18,17 @@ import java.io.IOException;
 @RestController
 public class ImageController {
 
+    @Autowired
+    BaiduUtils baiduUtils;
+
     @RequestMapping(value = "/image/imageUpload", method = RequestMethod.POST)
     public Result<Object> uploadFile(@RequestParam("file") MultipartFile files,
                                      HttpServletRequest request) {
-
+        JSONObject result = baiduUtils.checkImg(files);
+        String conclusion = (String) result.get("conclusion");
+        if ("不合规".equals(conclusion)){
+            return new ResultUtil<Object>().setErrorMsg("疑似或存在违规图片！请勿传播非法图片");
+        }
         String imagePath = null;
         // 文件保存路径
 //        String filePath = request.getSession().getServletContext().getRealPath("/upload")+"\\"
@@ -89,6 +99,11 @@ public class ImageController {
 
     @RequestMapping(value = "/tinymce/imageUpload", method = RequestMethod.POST)
     public Result<Object> uploadImage(@RequestParam("img") MultipartFile files) {
+        JSONObject result = baiduUtils.checkImg(files);
+        String conclusion = (String) result.get("conclusion");
+        if ("不合规".equals(conclusion)){
+            return new ResultUtil<Object>().setErrorMsg("疑似或存在违规图片！请勿传播非法图片");
+        }
         String imagePath = null;
         String filePath = "D:\\upload\\" + QiniuUtil.renamePic(files.getOriginalFilename());
         System.out.println("图片路径：" + filePath);
